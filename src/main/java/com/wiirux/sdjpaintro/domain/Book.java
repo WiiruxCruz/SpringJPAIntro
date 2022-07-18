@@ -1,5 +1,7 @@
 package com.wiirux.sdjpaintro.domain;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,23 @@ public class Book {
 		this.title = title;
 		this.isbn = isbn;
 		this.publisher = publisher;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		
+		Book book = (Book) obj;
+		
+		//return id != null ? id.equals(book.id) : book.id == null;
+		return Objects.equals(id, book.id);
+	}
+	
+	@Override
+	public int hashCode() {
+		//return Objects.hash(id);
+		return id != null ? id.hashCode() : 0;
 	}
 	
 	public Long getId() {
