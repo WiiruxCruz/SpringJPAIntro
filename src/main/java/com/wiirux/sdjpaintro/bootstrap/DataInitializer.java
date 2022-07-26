@@ -1,10 +1,13 @@
 package com.wiirux.sdjpaintro.bootstrap;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.wiirux.sdjpaintro.domain.Book;
 import com.wiirux.sdjpaintro.repositories.BookRepository;
 
+
+@Profile({"local", "default"})
 @Component
 public class DataInitializer implements CommandLineRunner {
 	
@@ -16,6 +19,9 @@ public class DataInitializer implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		br.deleteAll();
+		
 		Book bookDDD = new Book("Domain Driven Design", "123", "RandomHouse");
 		
 		System.out.println("ID:" + bookDDD.getId());
