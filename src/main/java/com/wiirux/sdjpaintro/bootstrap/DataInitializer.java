@@ -22,13 +22,13 @@ public class DataInitializer implements CommandLineRunner {
 		
 		br.deleteAll();
 		
-		Book bookDDD = new Book("Domain Driven Design", "123", "RandomHouse");
+		Book bookDDD = new Book("Domain Driven Design", "123", "RandomHouse", null);
 		
 		System.out.println("ID:" + bookDDD.getId());
 		
 		Book savedDDD = br.save(bookDDD);
 		
-		Book bookSIA = new Book("Spring in Action", "234234", "Oreily");
+		Book bookSIA = new Book("Spring in Action", "234234", "Oreily", null);
 		Book savedSIA = br.save(bookSIA);
 		
 		br.findAll().forEach( book -> {
