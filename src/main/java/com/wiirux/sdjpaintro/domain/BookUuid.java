@@ -46,4 +46,5 @@ public class BookUuid {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
+	
 }
