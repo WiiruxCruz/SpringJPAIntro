@@ -3,7 +3,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import com.wiirux.sdjpaintro.domain.AuthorUuid;
 import com.wiirux.sdjpaintro.domain.Book;
+import com.wiirux.sdjpaintro.repositories.AuthorUuidRepository;
 import com.wiirux.sdjpaintro.repositories.BookRepository;
 
 
@@ -12,9 +14,11 @@ import com.wiirux.sdjpaintro.repositories.BookRepository;
 public class DataInitializer implements CommandLineRunner {
 	
 	private final BookRepository br;
+	private final AuthorUuidRepository aur;
 	
-	public DataInitializer(BookRepository br) {
+	public DataInitializer(BookRepository br, AuthorUuidRepository aur) {
 		this.br = br;
+		this.aur = aur;
 	}
 
 	@Override
@@ -36,6 +40,13 @@ public class DataInitializer implements CommandLineRunner {
 			System.out.println("Book title:" + book.getTitle());
 			System.out.println("Book ISBN:" + book.getIsbn());
 		} );
+		
+		AuthorUuid authorUuid = new AuthorUuid();
+		authorUuid.setFirstName("Joe");
+		authorUuid.setLastName("Black");
+		
+		AuthorUuid savedAuthor = aur.save(authorUuid);
+		System.out.println("Saved Author UUID: " + savedAuthor.getId());
 	}
 
 }
