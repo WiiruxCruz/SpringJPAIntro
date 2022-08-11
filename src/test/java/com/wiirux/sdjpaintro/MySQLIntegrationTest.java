@@ -12,8 +12,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.wiirux.sdjpaintro.domain.AuthorUuid;
+import com.wiirux.sdjpaintro.domain.BookNatural;
 import com.wiirux.sdjpaintro.domain.BookUuid;
 import com.wiirux.sdjpaintro.repositories.AuthorUuidRepository;
+import com.wiirux.sdjpaintro.repositories.BookNaturalRepository;
 import com.wiirux.sdjpaintro.repositories.BookRepository;
 import com.wiirux.sdjpaintro.repositories.BookUuidRepository;
 
@@ -31,6 +33,19 @@ public class MySQLIntegrationTest {
 	
 	@Autowired
 	BookUuidRepository bur;
+	
+	@Autowired
+	BookNaturalRepository bnr;
+	
+	@Test
+	void bookNaturalTest() {
+		BookNatural bookNatural = new BookNatural();
+		bookNatural.setTitle("My Book");
+		BookNatural saved = bnr.save(bookNatural);
+		
+		BookNatural fetched = bnr.getById(saved.getTitle());
+		assertThat(fetched).isNotNull();
+	}
 	
 	@Test
 	void testBookUuid() {
