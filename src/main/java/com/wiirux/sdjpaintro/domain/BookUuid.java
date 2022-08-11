@@ -1,6 +1,5 @@
 package com.wiirux.sdjpaintro.domain;
 
-import java.util.Objects;
 import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
