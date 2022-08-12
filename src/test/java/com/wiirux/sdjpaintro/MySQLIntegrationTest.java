@@ -14,6 +14,9 @@ import org.springframework.test.context.ActiveProfiles;
 import com.wiirux.sdjpaintro.domain.AuthorUuid;
 import com.wiirux.sdjpaintro.domain.BookNatural;
 import com.wiirux.sdjpaintro.domain.BookUuid;
+import com.wiirux.sdjpaintro.domain.composite.AuthorComposite;
+import com.wiirux.sdjpaintro.domain.composite.NameId;
+import com.wiirux.sdjpaintro.repositories.AuthorCompositeRepository;
 import com.wiirux.sdjpaintro.repositories.AuthorUuidRepository;
 import com.wiirux.sdjpaintro.repositories.BookNaturalRepository;
 import com.wiirux.sdjpaintro.repositories.BookRepository;
@@ -36,6 +39,26 @@ public class MySQLIntegrationTest {
 	
 	@Autowired
 	BookNaturalRepository bnr;
+
+	@Autowired
+	AuthorCompositeRepository acr;
+	
+	@Test
+	void authorCompositeTest() {
+		NameId nameId = new NameId("John", "T");
+		AuthorComposite authorComposite = new AuthorComposite();
+		authorComposite.setFirstName(nameId.getFirstName());
+		authorComposite.setLastName(nameId.getLastName());
+		authorComposite.setCountry("US");
+		
+		AuthorComposite saved =  acr.save(authorComposite);
+		assertThat(saved).isNotNull();
+		System.out.println(saved.getFirstName());
+		System.out.println(saved.getLastName());
+		
+		AuthorComposite fetched = acr.getById(nameId);
+		assertThat(fetched).isNotNull();
+	}
 	
 	@Test
 	void bookNaturalTest() {

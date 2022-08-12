@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 import com.wiirux.sdjpaintro.domain.AuthorUuid;
 import com.wiirux.sdjpaintro.domain.Book;
 import com.wiirux.sdjpaintro.domain.BookUuid;
+import com.wiirux.sdjpaintro.domain.composite.AuthorComposite;
+import com.wiirux.sdjpaintro.domain.composite.NameId;
+import com.wiirux.sdjpaintro.repositories.AuthorCompositeRepository;
 import com.wiirux.sdjpaintro.repositories.AuthorUuidRepository;
 import com.wiirux.sdjpaintro.repositories.BookRepository;
 import com.wiirux.sdjpaintro.repositories.BookUuidRepository;
@@ -18,15 +21,18 @@ public class DataInitializer implements CommandLineRunner {
 	private final BookRepository br;
 	private final AuthorUuidRepository aur;
 	private final BookUuidRepository bur;
+	private final AuthorCompositeRepository acr;
 	
 	public DataInitializer(
 			BookRepository br,
 			AuthorUuidRepository aur,
-			BookUuidRepository bur
+			BookUuidRepository bur,
+			AuthorCompositeRepository acr
 	) {
 		this.br = br;
 		this.aur = aur;
 		this.bur = bur;
+		this.acr = acr;
 	}
 
 	@Override
@@ -60,6 +66,15 @@ public class DataInitializer implements CommandLineRunner {
 		bookUuid.setTitle("All about UUIDs");
 		BookUuid savedBookUuid = bur.save(bookUuid);
 		System.out.println("Saved Book UUID: " + savedBookUuid.getId());
+		
+		NameId nameId = new NameId("John", "T");
+		AuthorComposite authorComposite = new AuthorComposite();
+		authorComposite.setFirstName(nameId.getFirstName());
+		authorComposite.setLastName(nameId.getLastName());
+		AuthorComposite authorCompositeSaved = acr.save(authorComposite);
+		System.out.println("Saved Author Composite: " + authorCompositeSaved.getFirstName() + " " + authorCompositeSaved.getLastName());
+		
+		
 	}
 
 }
