@@ -15,8 +15,10 @@ import com.wiirux.sdjpaintro.domain.AuthorUuid;
 import com.wiirux.sdjpaintro.domain.BookNatural;
 import com.wiirux.sdjpaintro.domain.BookUuid;
 import com.wiirux.sdjpaintro.domain.composite.AuthorComposite;
+import com.wiirux.sdjpaintro.domain.composite.AuthorEmbedded;
 import com.wiirux.sdjpaintro.domain.composite.NameId;
 import com.wiirux.sdjpaintro.repositories.AuthorCompositeRepository;
+import com.wiirux.sdjpaintro.repositories.AuthorEmbeddedRepository;
 import com.wiirux.sdjpaintro.repositories.AuthorUuidRepository;
 import com.wiirux.sdjpaintro.repositories.BookNaturalRepository;
 import com.wiirux.sdjpaintro.repositories.BookRepository;
@@ -42,6 +44,20 @@ public class MySQLIntegrationTest {
 
 	@Autowired
 	AuthorCompositeRepository acr;
+	
+	@Autowired
+	AuthorEmbeddedRepository aer;
+	@Test
+	void authorEmbeddedTest() {
+		NameId nameId = new NameId("John", "E");
+		AuthorEmbedded ae =  new AuthorEmbedded(nameId);
+		
+		AuthorEmbedded saved = aer.save(ae);
+		assertThat(saved).isNotNull();
+		
+		AuthorEmbedded fetched = aer.getById(nameId);
+		assertThat(fetched).isNotNull();
+	}
 	
 	@Test
 	void authorCompositeTest() {

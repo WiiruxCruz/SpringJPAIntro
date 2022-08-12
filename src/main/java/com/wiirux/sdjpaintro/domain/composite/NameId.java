@@ -1,10 +1,10 @@
 package com.wiirux.sdjpaintro.domain.composite;
 
-//import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 
-//@Embeddable
+@Embeddable
 public class NameId implements Serializable {
 	/**
 	 * 
